@@ -1,0 +1,10 @@
+AFFECT /qml/device/view/documentview/DeviceSceneView.qml
+    IMPORT net.sudoku 1.0
+    TRAVERSE FocusScope > ScenePenInputHandler
+        REBUILD onStrokeCompleted
+            LOCATE BEFORE { completedStroke } INSERT {
+                PuzzleManager.line(stroke);
+            }
+        END REBUILD
+    END TRAVERSE
+END AFFECT

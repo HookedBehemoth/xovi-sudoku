@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/bin" compression-algorithm="none">
+        <file>res/easy.bin</file>
+        <file>res/medium.bin</file>
+        <file>res/hard.bin</file>
+        <file>res/expert.bin</file>
+    </qresource>
+</RCC>
