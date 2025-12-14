@@ -1,7 +1,7 @@
 # remarkable sudoku for xovi
 
 ## TODO
-- [ ] proper fonts (at least smoothed)
+- [x] proper fonts (at least smoothed)
 - [ ] fix race conditions
 - [ ] history
 - [ ] actually hard puzzles

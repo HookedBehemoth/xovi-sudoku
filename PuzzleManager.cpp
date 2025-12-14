@@ -1,6 +1,6 @@
 #include "PuzzleManager.hpp"
 #include "Sudoku.hpp"
-#include "Numbers.hpp"
+#include "res/digits.hpp"
 
 struct LinePoint {
     float x;
@@ -182,7 +182,7 @@ QVariant PuzzleManager::getNumber(
     }
 
     usleep(1000);
-    QPointF center = QPointF(
+    Coordinate center = Coordinate(
         GridStartX + (column + 0.5f) * CellSize,
         GridStartY + (row + 0.5f) * CellSize
     );
@@ -194,7 +194,7 @@ QVariant PuzzleManager::getNumber(
     line.thickness = 0.0f;
     line.maskScale = 1.0;
 
-    const QPointF* points = nullptr;
+    const Coordinate* points = nullptr;
     size_t pointCount = 0;
     switch (number) {
         case 1:
@@ -238,25 +238,18 @@ QVariant PuzzleManager::getNumber(
     }
 
     // father forgive me for I have sinned
-    static std::array<LinePoint, 100> linePoints{};
+    static std::array<LinePoint, MaxDigitLength> linePoints{};
     for (size_t i = 0; i < pointCount; i++) {
         linePoints[i] = (LinePoint){
-            static_cast<float>(center.x() + points[i].x() * NumberScale),
-            static_cast<float>(center.y() + points[i].y() * -NumberScale),
+            center.x + points[i].x *  NumberScale,
+            center.y + points[i].y * -NumberScale,
             25, 25, 0, 255};
     }
 
-    // connect last point to the start
-    // TODO: Remove, once I have a proper font
-    linePoints[pointCount] = (LinePoint){
-        static_cast<float>(center.x() + points[0].x() * NumberScale),
-        static_cast<float>(center.y() + points[0].y() * -NumberScale),
-        0, 25, 0, 0};
-
     line.points = linePoints.data();
-    line.pointCount = pointCount + 1;
-    line.bounds.x = center.x() - CellRadius;
-    line.bounds.y = center.y() - CellRadius;
+    line.pointCount = pointCount;
+    line.bounds.x = center.x - CellRadius;
+    line.bounds.y = center.y - CellRadius;
     line.bounds.width = CellSize;
     line.bounds.height = CellSize;
     return QVariant::fromValue(line);

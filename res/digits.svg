@@ -1,0 +1,35 @@
+<?xml version="1.0" standalone="no"?>
+<svg width="569" height="670"
+    stroke-width="10" 
+    fill="none"
+    stroke="black"
+    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+    <metadata>
+    Created by FontForge 20201107 at Fri Feb 14 11:47:47 2025
+    By Tanguy Vanlaeys
+    Copyright 2021 The Relief SingleLine Project Authors (https://github.com/isdat-type/Relief-SingleLine)
+    </metadata>
+    <path
+        id="one"
+         horiz-adv-x="448" 
+        d="M288 0v670h-4l-214 -151" />
+    <path
+        id="two"
+         horiz-adv-x="550"
+        d="M465 0h-400v4l223 245c76 84 152 163 152 270c0 109 -79 161 -166 161c-88 0 -161 -52 -190 -138" />
+    <path
+        id="three"
+        horiz-adv-x="566"
+        d="M75 123c19 -74 91 -124 188 -124c118 0 193 74 193 176c0 89 -56 184 -207 184h-31M249 359c134 0 197 77 197 167c0 82 -54 154 -173 154c-96 0 -154 -48 -183 -101" />
+    <path glyph-name="four" unicode="4" horiz-adv-x="569" d="M385 0v670h-10l-310 -506v-4h444" />
+    <path glyph-name="five" unicode="5" horiz-adv-x="558" 
+d="M95 138c32 -89 98 -138 181 -138c109 0 191 84 191 208c0 117 -74 207 -193 207c-46 0 -105 -13 -147 -39l10 294h312" />
+    <path glyph-name="six" unicode="6" horiz-adv-x="567" 
+d="M360 680l-159 -212c-82 -109 -111 -184 -111 -263c0 -100 54 -205 202 -205c128 0 200 84 200 198c0 126 -91 203 -194 203c-69 0 -147 -33 -193 -104" />
+    <path glyph-name="seven" unicode="7" horiz-adv-x="495" 
+d="M126 0l319 666v4h-405" />
+    <path glyph-name="eight" unicode="8" horiz-adv-x="559" 
+d="M278 680c99 0 168 -62 168 -143c0 -184 -356 -167 -356 -375c0 -105 91 -162 188 -162c96 0 191 56 191 162c0 206 -357 188 -357 375c0 73 54 143 164 143" />
+    <path glyph-name="nine" unicode="9" horiz-adv-x="567" 
+d="M207 0l159 212c82 109 111 184 111 263c0 100 -54 205 -202 205c-128 0 -200 -84 -200 -198c0 -126 91 -203 194 -203c69 0 147 33 193 104" />
+</svg>
