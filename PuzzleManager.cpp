@@ -2,16 +2,6 @@
 #include "Sudoku.hpp"
 #include "Numbers.hpp"
 
-struct LinePoint {
-    float x;
-    float y;
-    unsigned short speed;
-    unsigned short width;
-    unsigned char direction;
-    unsigned char pressure;
-} __attribute__((packed));
-static_assert(sizeof(LinePoint) == 0xe, "LinePoint size mismatch");
-
 constexpr const float ScreenHeight = 1872.0f;
 constexpr const float CellSize = 130.0f;
 constexpr const float GridSize = CellSize * 9.0f;
@@ -64,12 +54,12 @@ constexpr auto sudokuPoints = generateSudokuGrid();
 
 void PuzzleManager::line(const Line &line) {
 #ifdef DEBUG
-    printf("Line log - tool: %d, color: %d, rgba: %08X, pointRc: %08X, pointCount: %u, maskScale: %f, thickness: %f, unk_x24: %08X\n",
-        line.tool, line.color, line.rgba, line.pointRc, line.pointCount, line.maskScale, line.thickness, line.unk_x24);
+    printf("Line log - tool: %d, color: %d, rgba: %08X, pointCount: %u, maskScale: %f, thickness: %f, unk_x24: %08X\n",
+        line.tool, line.color, line.rgba, line.points.size(), line.maskScale, line.thickness, line.unk_x24);
     printf("Line log - bounds: (%.2f, %.2f, %.2f, %.2f)\n", line.bounds.x, line.bounds.y, line.bounds.width, line.bounds.height);
 
     printf("Line points:\n");
-    for (unsigned int i = 0; i < line.pointCount; i++) {
+    for (unsigned int i = 0; i < line.points.size(); i++) {
         const LinePoint &point = line.points[i];
         printf("  Point %u: (x: %f, y: %f, speed: %u, width: %u, direction: %u, pressure: %u)\n",
             i, point.x, point.y, point.speed, point.width, point.direction, point.pressure);
@@ -82,8 +72,9 @@ void PuzzleManager::line(const Line &line) {
 Line PuzzleManager::createGrid() {
     Line gridLine = {};
     gridLine.tool = 0x13; // SolidPen
-    gridLine.points = sudokuPoints.data();
-    gridLine.pointCount = sudokuPoints.size();
+    // gridLine.points = sudokuPoints.data();
+    // gridLine.pointCount = sudokuPoints.size();
+    gridLine.points = QList(sudokuPoints.begin(), sudokuPoints.end());
     gridLine.color = 0; // Black
     gridLine.rgba = 0xff000000;
     gridLine.thickness = 0.0f;
@@ -97,13 +88,14 @@ Line PuzzleManager::createGrid() {
 }
 
 Line PuzzleManager::createCircle() {
-    static std::array<LinePoint, 100> circlePoints{};
+    QList<LinePoint> circlePoints;
+    circlePoints.resize(100);
     static bool initialized = false;
     if (!initialized) {
         const float centerX = 0.0f;
         const float centerY = ScreenHeight / 2.0f;
         const float radius = 400.0f;
-        for (size_t i = 0; i < circlePoints.size(); i++) {
+        for (qsizetype i = 0; i < circlePoints.size(); i++) {
             float angle = (static_cast<float>(i) / static_cast<float>(circlePoints.size() - 1)) * 2.0f * 3.14159265f;
             circlePoints[i].x = centerX + radius * cos(angle);
             circlePoints[i].y = centerY + radius * sin(angle);
@@ -117,8 +109,7 @@ Line PuzzleManager::createCircle() {
 
     Line circleLine = {};
     circleLine.tool = 0x13; // SolidPen
-    circleLine.points = circlePoints.data();
-    circleLine.pointCount = circlePoints.size();
+    circleLine.points = circlePoints;
     circleLine.color = 0; // Black
     circleLine.rgba = 0xff000000;
     circleLine.thickness = 0.0f;
@@ -139,8 +130,7 @@ Line PuzzleManager::createLine(const QPointF& start, const QPointF& end) {
 
     Line line = {};
     line.tool = 0x13; // SolidPen
-    line.points = linePoints.data();
-    line.pointCount = linePoints.size();
+    line.points = QList(linePoints.begin(), linePoints.end());
     line.color = 0; // Black
     line.rgba = 0xff000000;
     line.thickness = 0.0f;
@@ -238,7 +228,9 @@ QVariant PuzzleManager::getNumber(
     }
 
     // father forgive me for I have sinned
-    static std::array<LinePoint, 100> linePoints{};
+    // static std::array<LinePoint, 100> linePoints{};
+    QList<LinePoint> linePoints;
+    linePoints.resize(pointCount + 1);
     for (size_t i = 0; i < pointCount; i++) {
         linePoints[i] = (LinePoint){
             static_cast<float>(center.x() + points[i].x() * NumberScale),
@@ -253,8 +245,7 @@ QVariant PuzzleManager::getNumber(
         static_cast<float>(center.y() + points[0].y() * -NumberScale),
         0, 25, 0, 0};
 
-    line.points = linePoints.data();
-    line.pointCount = pointCount + 1;
+    line.points = linePoints;
     line.bounds.x = center.x() - CellRadius;
     line.bounds.y = center.y() - CellRadius;
     line.bounds.width = CellSize;

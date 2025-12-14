@@ -2,8 +2,19 @@
 #include <QPointF>
 #include <QVariant>
 #include <Sudoku.hpp>
+#include <QList>
 
 struct LinePoint;
+
+struct LinePoint {
+    float x;
+    float y;
+    unsigned short speed;
+    unsigned short width;
+    unsigned char direction;
+    unsigned char pressure;
+} __attribute__((packed));
+static_assert(sizeof(LinePoint) == 0xe, "LinePoint size mismatch");
 
 struct QRectF {
     double x;
@@ -18,9 +29,10 @@ struct Line {
     unsigned int rgba;
 
     // Technically a QList<LinePoint>
-    unsigned int pointRc;
-    const LinePoint* points;
-    unsigned int pointCount;
+    // unsigned int pointRc;
+    // const LinePoint* points;
+    // unsigned int pointCount;
+    QList<LinePoint> points;
 
     double maskScale;
     float thickness;
