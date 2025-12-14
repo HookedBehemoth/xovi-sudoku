@@ -48,5 +48,6 @@ public:
     Q_INVOKABLE QVariant getSudoku(int level);
     Q_INVOKABLE QVariant getNumber(
         const Sudoku& sudoku,
-        int column, int row);
+        int column, int row,
+        bool maskHint);
 };

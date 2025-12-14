@@ -167,7 +167,8 @@ QVariant PuzzleManager::getSudoku(int level) {
 
 QVariant PuzzleManager::getNumber(
     const Sudoku& sudoku,
-    int column, int row) {
+    int column, int row,
+    bool maskHint) {
     if (row < 0 || row >= 9 || column < 0 || column >= 9) {
         return QVariant();
     }
@@ -177,7 +178,7 @@ QVariant PuzzleManager::getNumber(
         return QVariant();
     }
 
-    if (!sudoku.HintMask[row * 9 + column]) {
+    if (maskHint && !sudoku.HintMask[row * 9 + column]) {
         return QVariant();
     }
 
