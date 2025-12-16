@@ -6,3 +6,5 @@ qrc_*
 moc_*
 Makefile
 .qmake.stash
+build/
+venv/
