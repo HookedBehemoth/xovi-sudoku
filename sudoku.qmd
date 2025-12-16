@@ -8,8 +8,7 @@ AFFECT /xofm/libs/toolbar/impl/Toolbar.qml
 ToolbarTool {
     id: puzzleOptions
     toolbar: root
-    sticky: true
-    type: ToolbarTool.Type.ToolbarButton
+    type: ToolbarTool.Type.FoldoutButton
 
     iconSource: "qrc:/ark/icons/grid"
     enabled: true
@@ -25,7 +24,7 @@ ToolbarTool {
         sceneController.setLayerName(sceneController.currentLayer, "Sudoku")
 
         for (var idx = 0; idx < 81; ++idx) {
-            var numLine = PuzzleManager.getNumber(puzzle, idx % 9, idx / 9, true);
+            var numLine = PuzzleManager.getSudokuNumber(puzzle, idx % 9, idx / 9, true);
             if (numLine === undefined) {
                 continue;
             }
@@ -43,6 +42,7 @@ ToolbarTool {
         sceneView.tileManager.reload();
 
         sceneController.addLayer();
+        root._select(puzzleOptions);
     }
 
     foldoutContent: ColumnLayout {
@@ -81,6 +81,50 @@ ToolbarTool {
                 focusPolicy: Qt.NoFocus
                 Layout.fillWidth: true
                 onClicked: puzzleOptions.drawPuzzle(difficulty)
+            }
+        }
+
+        ArkControls.FoldoutItem {
+            label: "Dump Scene"
+            iconSource: "qrc:/ark/icons/grid"
+            antialiasing: root.antialiasing
+            focusPolicy: Qt.NoFocus
+            Layout.fillWidth: true
+            onClicked: sceneController.dumpScene()
+        }
+
+        ArkControls.FoldoutItem {
+            label: "Log Clipboard"
+            iconSource: "qrc:/ark/icons/grid"
+            antialiasing: root.antialiasing
+            focusPolicy: Qt.NoFocus
+            Layout.fillWidth: true
+            onClicked: PuzzleManager.logSceneItems(Clipboard.items)
+        }
+
+        ArkControls.FoldoutItem {
+            label: "Copy Crosshair"
+            iconSource: "qrc:/ark/icons/grid"
+            antialiasing: root.antialiasing
+            focusPolicy: Qt.NoFocus
+            Layout.fillWidth: true
+            onClicked: {
+                root._select(puzzleOptions);
+                root.selectSelection();
+                Clipboard.items = PuzzleManager.copyCrosshair();
+            }
+        }
+
+        ArkControls.FoldoutItem {
+            label: "Copy Stars"
+            iconSource: "qrc:/ark/icons/grid"
+            antialiasing: root.antialiasing
+            focusPolicy: Qt.NoFocus
+            Layout.fillWidth: true
+            onClicked: {
+                root._select(puzzleOptions);
+                root.selectSelection();
+                Clipboard.items = PuzzleManager.copyStars(20, 800.0);
             }
         }
     }

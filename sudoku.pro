@@ -18,7 +18,10 @@ QT += quick qml
 CONFIG += c++20
 
 # Specify the source files
-SOURCES += main.cpp PuzzleManager.cpp Sudoku.cpp entry.c xovi.c
+SOURCES += \
+    main.cpp entry.c xovi.c \
+    PuzzleManager.cpp Sudoku.cpp \
+    rm_Line.cpp rm_SceneLineItem.cpp
 
 HEADERS += PuzzleManager.hpp Sudoku.hpp
 

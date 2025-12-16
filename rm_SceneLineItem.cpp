@@ -1,0 +1,43 @@
+#include "rm_SceneLineItem.hpp"
+
+#include <cstdio>
+
+void SceneLineItem::log(const SceneLineItem& item) {
+    printf("  Id: %d, Source Layer: %d\n", item.pageIndex, item.sourceLayerId);
+
+    bool unusual = false;
+    unusual |= item.vtable != reinterpret_cast<void*>(0x1155e80);
+    unusual |= item.unk_x4 != 3;
+    unusual |= item.pageIndex < 0xE;
+    unusual |= item.unk_xc != 0;
+    unusual |= item.unk_xe != 1;
+    unusual |= item.sourceLayerId < 0xB;
+    unusual |= item.unk_x14 != 0;
+    if (item.sourceLayerId > 0xB) {
+        unusual |= item.unk_x16 != 1;
+    }
+    for (auto v : item.unk_x18) {
+        unusual |= v != 0;
+    }
+    unusual |= !(item.unk_x20 == 0x0 || (item.unk_x20 == 0x2 && item.unk_x21 == 0x2));
+    for (auto v : item.unk_x24) {
+        unusual |= v != 0;
+    }
+    unusual |= item.unk_x78 != 1;
+    for (auto v : item.unk_x7c) {
+        unusual |= v != 0;
+    }
+
+    if (!unusual) {
+        printf("Normal clipboard item\n");
+        return;
+    }
+    printf("Unusual clipboard item\n");
+
+    const unsigned int* raw = reinterpret_cast<const unsigned int*>(&item.vtable);
+    for (size_t i = 0; i < (sizeof(SceneLineItem) / 4); ++i) {
+        if (i < 12 || i >= 30) {
+            printf("\t%02X: %08X\n", i * 4, raw[i]);
+        }
+    }
+}

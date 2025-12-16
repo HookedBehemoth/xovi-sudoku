@@ -1,42 +1,12 @@
+#pragma once
+
+#include <QList>
 #include <QObject>
 #include <QPointF>
 #include <QVariant>
-#include <Sudoku.hpp>
-#include <QList>
-
-struct LinePoint;
-
-struct LinePoint {
-    float x;
-    float y;
-    unsigned short speed;
-    unsigned short width;
-    unsigned char direction;
-    unsigned char pressure;
-} __attribute__((packed));
-static_assert(sizeof(LinePoint) == 0xe, "LinePoint size mismatch");
-
-struct QRectF {
-    double x;
-    double y;
-    double width;
-    double height;
-};
-
-struct Line {
-    int tool;
-    int color;
-    unsigned int rgba;
-
-    QList<LinePoint> points;
-
-    double maskScale;
-    float thickness;
-
-    // these bounds are used for early hit testing on erase & select
-    QRectF bounds;
-};
-static_assert(sizeof(Line) == 72);
+#include "Sudoku.hpp"
+#include "rm_Line.hpp"
+#include "rm_SceneItem.hpp"
 
 class PuzzleManager : public QObject
 {
@@ -44,17 +14,22 @@ class PuzzleManager : public QObject
 public:
     explicit PuzzleManager(QObject *parent = nullptr) : QObject(parent) {}
 
-    Q_INVOKABLE void line(const Line &line);
+    Q_INVOKABLE void logLine(const Line &line);
 
     Q_INVOKABLE Line createGrid();
-
-    Q_INVOKABLE Line createCircle();
-
+    Q_INVOKABLE Line createCircle(const QPointF& center, float radius);
     Q_INVOKABLE Line createLine(const QPointF& start, const QPointF& end);
 
     Q_INVOKABLE QVariant getSudoku(int level);
-    Q_INVOKABLE QVariant getNumber(
+    Q_INVOKABLE QVariant getSudokuNumber(
         const Sudoku& sudoku,
         int column, int row,
         bool maskHint);
+    Q_INVOKABLE QVariant getNumber(int number, const QPointF& center, float scale);
+
+    Q_INVOKABLE void logSceneItems(const QList<std::shared_ptr<SceneItem>>& items);
+    Q_INVOKABLE QList<std::shared_ptr<SceneItem>> copyCrosshair();
+
+    Q_INVOKABLE Line createStar(const QPointF& center, double size, size_t points = 5);
+    Q_INVOKABLE QList<std::shared_ptr<SceneItem>> copyStars(size_t count, double spread, size_t points = 5);
 };

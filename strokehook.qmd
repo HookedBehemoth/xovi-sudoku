@@ -3,7 +3,7 @@ AFFECT /qml/device/view/documentview/DeviceSceneView.qml
     TRAVERSE FocusScope > ScenePenInputHandler
         REBUILD onStrokeCompleted
             LOCATE BEFORE { completedStroke } INSERT {
-                PuzzleManager.line(stroke);
+                PuzzleManager.logLine(stroke);
             }
         END REBUILD
     END TRAVERSE

@@ -1,3 +1,8 @@
+#pragma once
+
+#include <array>
+#include <span>
+
 // Number point coordinates ranging from -1.0 to 1.0.
 struct Coordinate {
     float x;
@@ -433,3 +438,15 @@ constexpr size_t MaxDigitLength
     = std::max({Num1Points.size(), Num2Points.size(), Num3Points.size(),
                 Num4Points.size(), Num5Points.size(), Num6Points.size(),
                 Num7Points.size(), Num8Points.size(), Num9Points.size()});
+
+constexpr std::array<std::span<const Coordinate>, 9> DigitPoints = {
+    std::span<const Coordinate>(Num1Points),
+    std::span<const Coordinate>(Num2Points),
+    std::span<const Coordinate>(Num3Points),
+    std::span<const Coordinate>(Num4Points),
+    std::span<const Coordinate>(Num5Points),
+    std::span<const Coordinate>(Num6Points),
+    std::span<const Coordinate>(Num7Points),
+    std::span<const Coordinate>(Num8Points),
+    std::span<const Coordinate>(Num9Points),
+};
