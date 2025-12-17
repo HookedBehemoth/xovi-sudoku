@@ -221,3 +221,17 @@ QList<std::shared_ptr<SceneItem>> PuzzleManager::copyStars(size_t count, double 
 
     return itemList;
 }
+
+void PuzzleManager::sleepMs(int ms) {
+    ::usleep(ms * 1000);
+}
+
+bool PuzzleManager::setupVtablePtr(const QList<std::shared_ptr<SceneItem>>& items) {
+    if (items.empty()) {
+        printf("setupVtablePtr: no items provided\n");
+        return false;
+    }
+    auto* item = reinterpret_cast<SceneLineItem*>(items.first().get());
+    SceneLineItem::setupVtable(item->vtable);
+    return true;
+}

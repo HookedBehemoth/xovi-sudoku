@@ -2,11 +2,18 @@
 
 #include <cstdio>
 
+void* SceneLineItem::vtable_ptr = nullptr;
+
+void SceneLineItem::setupVtable(void* vtable) {
+    printf("Setting SceneLineItem vtable to %p\n", vtable);
+    SceneLineItem::vtable_ptr = vtable;
+}
+
 void SceneLineItem::log(const SceneLineItem& item) {
     printf("  Id: %d, Source Layer: %d\n", item.pageIndex, item.sourceLayerId);
 
     bool unusual = false;
-    unusual |= item.vtable != reinterpret_cast<void*>(0x1155e80);
+    unusual |= item.vtable != vtable_ptr;
     unusual |= item.unk_x4 != 3;
     unusual |= item.pageIndex < 0xE;
     unusual |= item.unk_xc != 0;

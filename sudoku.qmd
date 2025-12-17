@@ -45,6 +45,28 @@ ToolbarTool {
         root._select(puzzleOptions);
     }
 
+    // draws a line above the top of the page, selects and dumps that selection
+    // to obtain the vtable.
+    property var hasSceneLineItemVtable: false;
+    function ensureVtablePtr() {
+        if (hasSceneLineItemVtable) {
+            return;
+        }
+
+        sceneController.clearSelectedItems();
+        PuzzleManager.sleepMs(10);
+        sceneController.addDrawingLine(
+            PuzzleManager.createLine(Qt.point(-5, -10), Qt.point(5, -10)));
+        PuzzleManager.sleepMs(10);
+        sceneController.selectWithLine(
+            PuzzleManager.createCircle(Qt.point(0, -10), 10))
+        PuzzleManager.sleepMs(10);
+        hasSceneLineItemVtable = PuzzleManager.setupVtablePtr(
+            sceneController.cloneSelectedItems(sceneController.currentLayer, sceneView.defaultScale));
+        sceneController.deleteSelectedItems(sceneController.currentLayer);
+        sceneController.clearSelectedItems();
+    }
+
     foldoutContent: ColumnLayout {
         spacing: 0
 
@@ -109,6 +131,7 @@ ToolbarTool {
             focusPolicy: Qt.NoFocus
             Layout.fillWidth: true
             onClicked: {
+                puzzleOptions.ensureVtablePtr();
                 root._select(puzzleOptions);
                 root.selectSelection();
                 Clipboard.items = PuzzleManager.copyCrosshair();
@@ -122,6 +145,7 @@ ToolbarTool {
             focusPolicy: Qt.NoFocus
             Layout.fillWidth: true
             onClicked: {
+                puzzleOptions.ensureVtablePtr();
                 root._select(puzzleOptions);
                 root.selectSelection();
                 Clipboard.items = PuzzleManager.copyStars(20, 800.0);

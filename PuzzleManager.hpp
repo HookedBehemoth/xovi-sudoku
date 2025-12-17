@@ -32,4 +32,7 @@ public:
 
     Q_INVOKABLE Line createStar(const QPointF& center, double size, size_t points = 5);
     Q_INVOKABLE QList<std::shared_ptr<SceneItem>> copyStars(size_t count, double spread, size_t points = 5);
+
+    Q_INVOKABLE void sleepMs(int ms);
+    Q_INVOKABLE bool setupVtablePtr(const QList<std::shared_ptr<SceneItem>>& items);
 };

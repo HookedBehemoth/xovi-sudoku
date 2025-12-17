@@ -20,9 +20,12 @@ struct SceneLineItem : public SceneItem {
     /* 0x38 */ int unk_x78; // always 1
     /* 0x3c */ int unk_x7c[3];
 
-    static SceneLineItem fromLine(Line line) {
+    static void* vtable_ptr;
+    static void setupVtable(void* vtable);
+
+    static SceneLineItem fromLine(Line &&line) {
         SceneLineItem item = {};
-        item.vtable = reinterpret_cast<void*>(0x1155e80);
+        item.vtable = vtable_ptr;
         item.unk_x4 = 3;
         item.pageIndex = 0xE;
         item.unk_xe = 1;
