@@ -23,12 +23,11 @@ void SceneLineItem::log(const SceneLineItem& item) {
     if (item.sourceLayerId > 0xB) {
         unusual |= item.unk_x16 != 1;
     }
-    for (auto v : item.unk_x18) {
-        unusual |= v != 0;
-    }
+    unusual |= item.unk_x18 != 0;
+    unusual |= item.unk_x1c != nullptr;
     unusual |= !(item.unk_x20 == 0x0 || (item.unk_x20 == 0x2 && item.unk_x21 == 0x2));
     for (auto v : item.unk_x24) {
-        unusual |= v != 0;
+        unusual |= v != nullptr;
     }
     unusual |= item.unk_x78 != 1;
     for (auto v : item.unk_x7c) {
@@ -42,7 +41,7 @@ void SceneLineItem::log(const SceneLineItem& item) {
     printf("Unusual clipboard item\n");
 
     const unsigned int* raw = reinterpret_cast<const unsigned int*>(&item.vtable);
-    for (size_t i = 0; i < (sizeof(SceneLineItem) / 4); ++i) {
+    for (uint8_t i = 0; i < (sizeof(SceneLineItem) / 4); ++i) {
         if (i < 12 || i >= 30) {
             printf("\t%02X: %08X\n", i * 4, raw[i]);
         }

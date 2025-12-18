@@ -33,7 +33,7 @@ SOURCES += \
 HEADERS += PuzzleManager.hpp Sudoku.hpp
 INCLUDEPATH += $$XOVI_DIR
 
-QMAKE_CXXFLAGS += -fPIC -Werror
+QMAKE_CXXFLAGS += -fPIC -Werror -Wno-invalid-offsetof
 
 # QMAKE_CXX = aarch64-remarkable-linux-g++
 

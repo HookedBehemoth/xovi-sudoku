@@ -33,4 +33,11 @@ struct Line {
     static Line fromPoints(std::span<const LinePoint> points, const QRectF& bounds);
     static Line fromPoints(std::span<const LinePoint> points, const QPointF& center, float radius);
 };
-static_assert(sizeof(Line) == 72);
+#ifdef __arm__
+static_assert(sizeof(Line) == 0x48);
+#elifdef __aarch64__
+static_assert(sizeof(Line) == 0x58);
+#else
+#error "Unknown Arch"
+#endif
+

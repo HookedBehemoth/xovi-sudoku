@@ -156,7 +156,7 @@ QVariant PuzzleManager::getNumber(int number, const QPointF& center, float scale
 }
 
 void PuzzleManager::logSceneItems(const QList<std::shared_ptr<SceneItem>>& items) {
-    printf("Received %zu scene items\n", items.size());
+    printf("Received %zd scene items\n", (size_t)items.size());
     for (const auto& itemPtr : items) {
         printf("  SceneItem at %p with refCount %lu\n", itemPtr.get(), itemPtr.use_count());
 

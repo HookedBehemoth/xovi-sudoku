@@ -1,15 +1,15 @@
 #include "rm_Line.hpp"
 
 void Line::log(const Line& line) {
-    printf("Line log - tool: %d, color: %d, rgba: %08X, pointCount: %u, maskScale: %f, thickness: %f\n",
-        line.tool, line.color, line.rgba, line.points.size(), line.maskScale, line.thickness);
+    printf("Line log - tool: %d, color: %d, rgba: %08X, pointCount: %zu, maskScale: %f, thickness: %f\n",
+        line.tool, line.color, line.rgba, (size_t)line.points.size(), line.maskScale, line.thickness);
     printf("Line log - bounds: (%.2f, %.2f, %.2f, %.2f)\n", line.bounds.x(), line.bounds.y(), line.bounds.width(), line.bounds.height());
 
     printf("Line points:\n");
     for (qsizetype i = 0; i < line.points.size(); i++) {
         const LinePoint &point = line.points[i];
-        printf("  Point %d: (x: %f, y: %f, speed: %u, width: %u, direction: %u, pressure: %u)\n",
-            i, point.x, point.y, point.speed, point.width, point.direction, point.pressure);
+        printf("  Point %zd: (x: %f, y: %f, speed: %u, width: %u, direction: %u, pressure: %u)\n",
+            (size_t)i, point.x, point.y, point.speed, point.width, point.direction, point.pressure);
     }
 }
 
