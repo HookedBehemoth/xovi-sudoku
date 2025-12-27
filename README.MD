@@ -3,9 +3,9 @@
 ## TODO
 - [x] proper fonts (at least smoothed)
 - [ ] fix race conditions
-- [ ] history
-- [ ] actually hard puzzles
-- [ ] rmpp support
+- [x] history
+- [x] actually hard puzzles
+- [x] rmpp support
 
 ## Building
 Requires bash for devenv source
