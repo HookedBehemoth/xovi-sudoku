@@ -13,7 +13,7 @@ XOVI_DIR = build/xovi
 
 xoviextension.target = build/xovi/xovi.c
 xoviextension.commands = mkdir -p $$XOVI_DIR && python3 $$(XOVI_REPO)/util/xovigen.py -o $$XOVI_DIR/xovi.c -H $$XOVI_DIR/xovi.h sudoku.xovi
-xoviextension.depends = sudoku.xovi sudoku.qmd strokehook.qmd
+xoviextension.depends = sudoku.xovi sudoku.qmd
 
 QMAKE_EXTRA_TARGETS += xoviextension
 PRE_TARGETDEPS += $$XOVI_DIR/xovi.c
@@ -28,7 +28,7 @@ CONFIG += c++20
 SOURCES += \
     main.cpp entry.c $$XOVI_DIR/xovi.c \
     PuzzleManager.cpp Sudoku.cpp \
-    rm_Line.cpp rm_SceneLineItem.cpp
+    rm_Line.cpp
 
 HEADERS += PuzzleManager.hpp Sudoku.hpp
 INCLUDEPATH += $$XOVI_DIR

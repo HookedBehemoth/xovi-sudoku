@@ -4,4 +4,3 @@ depends-on qt-resource-rebuilder:0.2.0
 
 import?         qt-resource-rebuilder$qmldiff_add_external_diff
 resource        toolbar:sudoku.qmd
-resource        strokehook:strokehook.qmd

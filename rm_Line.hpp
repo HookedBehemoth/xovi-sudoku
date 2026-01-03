@@ -27,7 +27,6 @@ struct Line {
     // these bounds are used for early hit testing on erase & select
     QRectF bounds;
 
-    static void log(const Line& line);
     static Line fromPoints(QList<LinePoint> &&points, const QRectF& bounds);
     static Line fromPoints(QList<LinePoint> &&points, const QPointF& center, float radius);
     static Line fromPoints(std::span<const LinePoint> points, const QRectF& bounds);
