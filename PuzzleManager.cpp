@@ -3,14 +3,14 @@
 #include "Sudoku.hpp"
 #include "res/digits.hpp"
 
-constexpr const float ScreenHeight = 1872.0f;
+constexpr const float ScreenHeight = 1696.0f;
 constexpr const float ScreenCenter = (ScreenHeight / 2.0f);
-constexpr const float CellSize = 130.0f;
+constexpr const float CellSize = 90.0f;
 constexpr const float GridSize = CellSize * 9.0f;
 constexpr const float CellRadius = CellSize / 2.0f;
 constexpr const float GridStartX = -(CellSize * 4.5f);
 constexpr const float GridStartY = (ScreenHeight / 2.0f) - (CellSize * 4.5f);
-constexpr const float NumberScale = 40.0f;
+constexpr const float NumberScale = 28.0f;
 
 constexpr auto generateSudokuGrid()
 {
