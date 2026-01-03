@@ -19,7 +19,7 @@ Line Line::fromPoints(QList<LinePoint> &&points, const QRectF& bounds) {
     line.color = 0; // Black
     line.rgba = 0xff000000;
     line.points = QList(points.begin(), points.end());
-    line.maskScale = 1.0;
+    line.maskScale = 2.0;
     line.thickness = 0.0f;
     line.bounds = bounds;
     return line;
