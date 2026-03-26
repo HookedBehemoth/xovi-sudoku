@@ -2,7 +2,7 @@
 
 ## TODO
 - [x] proper fonts (at least smoothed)
-- [ ] fix race conditions
+- [x] fix race conditions
 - [x] history
 - [x] actually hard puzzles
 - [x] rmpp support
